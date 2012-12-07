@@ -40,8 +40,6 @@ class data():
         
         n = len(headers)
         
-        for 1:n 
-        
         
     
         
