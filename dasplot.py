@@ -36,21 +36,21 @@ class graph(matplot.Ui_MainWindow,QMainWindow):
         QObject.connect(timer, SIGNAL("timeout()"), self.update_figure)
         timer.start(1000)
         
-    def start(self):
-        
-    def plotdata(self,xdata,ydata):
-        self.x = xdata
-        self.y = ydata
-    
-    def acquiredata(self):
-        for i in range(1,100):
-            time.sleep(1)
-            self.x.append(i)
-            self.y.append(i)
         
     def update_figure(self):
-        x = self.x
-        y = self.y
-        self.axes.plot(x,y,'r')
-        self.mplwidget.draw()
-        self.show()
+        """ Updates the state of the window with new 
+            data. The livefeed is used to find out whether new
+            data was received since the last update. If not, 
+            nothing is updated.
+        """
+         if self.livefeed.has_new_data:
+            data = self.livefeed.read_data()
+            self.x.append((data['gate']))
+            self.y.append((data['voltage']))
+            # I think this enables the 'scrolling' type data view
+            # if len(self.temperature_samples) > 100:
+              #  self.temperature_samples.pop(0)
+              
+            self.axes.plot(self.x,self.y)
+            self.mplwidget.draw()
+            self.show()

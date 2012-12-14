@@ -34,11 +34,7 @@ class ComMonitorThread(threading.Thread):
             grained chunks, with more accurate timestamps, but
             it will also consume more CPU.
     """
-    def __init__(   self, 
-                    data_q, error_q, 
-                    port_num,
-                    port_baud,
-                    port_stopbits=serial.STOPBITS_ONE,
+    def __init__(self, data_q, error_q, port_num,port_baud, port_stopbits=serial.STOPBITS_ONE,
                     port_parity=serial.PARITY_NONE,
                     port_timeout=0.01):
         threading.Thread.__init__(self)
